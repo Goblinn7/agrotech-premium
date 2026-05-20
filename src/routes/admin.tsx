@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
-import { LogOut, Pencil, Plus, Trash2, ArrowLeft } from "lucide-react";
+import { useRef, useState, type FormEvent, type ChangeEvent } from "react";
+import { LogOut, Pencil, Plus, Trash2, ArrowLeft, Upload, X } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
