@@ -100,10 +100,12 @@ function Dashboard() {
   const products = useProducts();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const reset = () => {
     setEditingId(null);
     setForm(emptyForm);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const startEdit = (p: Product) => {
@@ -115,7 +117,18 @@ function Dashboard() {
       price: p.price,
       image: p.image,
     });
+    if (fileInputRef.current) fileInputRef.current.value = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setForm((prev) => ({ ...prev, image: reader.result as string }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const submit = (e: FormEvent) => {
@@ -131,6 +144,11 @@ function Dashboard() {
       productStore.remove(id);
       if (editingId === id) reset();
     }
+  };
+
+  const clearImage = () => {
+    setForm((prev) => ({ ...prev, image: "" }));
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
