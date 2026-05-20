@@ -34,7 +34,8 @@ export function useAuth() {
   const [v, setV] = useState(false);
   useEffect(() => {
     setV(auth.isLoggedIn());
-    return auth.subscribe(setV);
+    const off = auth.subscribe(setV);
+    return () => { off(); };
   }, []);
   return v;
 }
