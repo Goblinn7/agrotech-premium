@@ -221,15 +221,38 @@ function Dashboard() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="image">URL Gambar</Label>
-              <Input
-                id="image"
-                type="url"
-                value={form.image}
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
-                placeholder="https://images.unsplash.com/..."
-                required
-              />
+              <Label htmlFor="image">Gambar Produk</Label>
+              {form.image ? (
+                <div className="relative">
+                  <img
+                    src={form.image}
+                    alt="Preview"
+                    className="h-32 w-full rounded-lg object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={clearImage}
+                    className="absolute right-2 top-2 rounded-full bg-black/50 p-1 text-white hover:bg-black/70"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-muted/30 px-4 py-8 transition-colors hover:bg-muted/50">
+                  <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
+                  <span className="text-sm font-medium text-muted-foreground">Klik untuk unggah gambar</span>
+                  <span className="mt-1 text-xs text-muted-foreground">JPG, PNG, WEBP</span>
+                  <input
+                    ref={fileInputRef}
+                    id="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="sr-only"
+                    required={!editingId}
+                  />
+                </label>
+              )}
             </div>
             <div className="flex gap-2 pt-2">
               <Button type="submit" className="flex-1 gap-2">
