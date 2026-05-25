@@ -78,10 +78,6 @@ function LoginForm() {
           </div>
           {err && <p className="text-sm text-destructive">{err}</p>}
           <Button type="submit" className="w-full">Masuk</Button>
-          <p className="text-center text-xs text-muted-foreground">
-            Demo: <code className="rounded bg-muted px-1.5 py-0.5">admin</code> /{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5">admin123</code>
-          </p>
         </form>
       </div>
     </div>
